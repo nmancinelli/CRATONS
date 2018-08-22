@@ -265,6 +265,11 @@ def multi_station_stack(ax, ax4, path2rf, lowT, highT,
                         offset=0.0, label='', scale_bar=False, baz1=-999.0, baz2=999.0,
                         SNR_min=0.0, Taup_Misfit_Min=-9999., Taup_Misfit_Max=9999.,
                         average_type='mean', DeconMethod='none'):
+    """
+    This code performs the single-station stacking by reading in individual RFs from the .mat files.
+    The name of the subroutine is accurate because multiple stations and or channels can be stacked together
+    by making the list path2rf longer than one element.
+    """
     global RFstack_mean, RFstack, RFstack_std, nboot, stname
     from TOOLS import loadmat
     from numpy import zeros, isnan, std, mean, nanstd

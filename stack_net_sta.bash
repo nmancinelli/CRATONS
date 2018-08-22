@@ -1,5 +1,6 @@
 #!/bin/bash
 #
+# The master fitting script calls this.
 
 MOHODEPTH=${1}
 MOHODROP=${2}

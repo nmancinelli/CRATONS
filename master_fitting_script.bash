@@ -1,4 +1,21 @@
 #!/bin/bash
+#
+#This is the script that runs the data and synthetic stacking code (Nicholas J. Mancinelli).
+#
+#
+#
+
+# Column 1: Modeled Moho depth (km)
+#        2: Modeled fractional velocity increase across the Moho (set near the top of the code)
+#        3: Dominant period of the data (s) -- this affects pulse broadening (e.g. 6)
+#        4: Station Network (e.g., II)
+#        5: Number of station locations to stack together (e.g., 2)
+#        6: Station channels separated by spaces (e.g., BRVK BRVK10)
+#
+#
+#
+#This is the assumed fractional velocity increase across the Moho
+#
 MOHODROP=0.19
 #
 #  bash stack_net_sta.bash  45 0.28 8  II 1 NRIL
