@@ -4,7 +4,6 @@
 #
 #
 #
-
 # Column 1: Modeled Moho depth (km)
 #        2: Modeled fractional velocity increase across the Moho (set near the top of the code)
 #        3: Dominant period of the data (s) -- this affects pulse broadening (e.g. 6)
