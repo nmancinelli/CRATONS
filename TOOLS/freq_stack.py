@@ -9,17 +9,18 @@ def freq_stack():
 
     tmp = path2rf[0].split('/')[-1]
 
+    #Manually change if you want to calc. goodness of fit
     CalculateGoodnessOfFit=False
     RSqStore={}
 
-    ##
+    #Dump information for the GRL publication
     if True:
         FileForPub = open('ForPub.txt', 'a')
         FileForPub.write('# \n')
         FileForPub.write('# %s \n' % tmp)
         FileForPub.write('# \n')
 
-    #Prepare synthetics
+    #Prepare synthetics - uncomment this if new synthetics need to be generated
     #for SyntheticParams in allSyntheticParams:
     #    for RayParam in [0.09, 0.092, 0.094, 0.096, 0.098, 0.1, 0.102, 0.104, 0.106, 0.108, 0.11, 0.112, 0.114, 0.116, 0.118]:
         #for RayParam in [0.12]:
@@ -36,6 +37,7 @@ def freq_stack():
               'ytick.labelsize': 5}
     plt.rcParams.update(params)
 
+    #For the GRL paper, the goodness-of-fit calculation was carried out only at 16s
 
     if CalculateGoodnessOfFit:
         ListOfPeriods = [16]
