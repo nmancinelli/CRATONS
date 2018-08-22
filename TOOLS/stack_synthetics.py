@@ -1,15 +1,21 @@
 #!/usr/bin/env python
 #
 def stack_synthetics(syntheticParams):
+    """
+    This subroutine makes the synthetic receiver-function stack, by weighting individual RFs calculated for each
+    ray parameter.
+    """
+
     # initialize stacked_RF
     from numpy import zeros,arange
     npts=311 #default from Matlab codes
     stacked_RF = zeros(npts)
 
+    #Weights are proportional to the number of recordings in a given ray-parameter bin
     rps = syntheticParams["RayParams"]
     ws = syntheticParams["Weights"]
 
-    #Uncomment below for quick, approximate syntethics
+    ##Uncomment below for quick, approximate syntethics
     #print '***Warning: These are quick, approximate synthetics'
     #rps = [0.12]
     #ws  = [1.0]
@@ -18,7 +24,7 @@ def stack_synthetics(syntheticParams):
 
     for irp, RayParam in enumerate(rps):
         w = ws[irp]
-        # load synthetic
+        # load synthetic using a subroutine
         depths, RF = load_synthetic_RF_PropMat(RayParam, syntheticParams)
 
         lenrf=len(RF)
@@ -30,20 +36,19 @@ def stack_synthetics(syntheticParams):
 
 def generate_synthetics(syntheticParams, RayParam, ForceNew=False):
     """
-    :param syntheticParams:
-    :param RayParam:
-    :param ForceNew:
-    :return:
+    This subroutine generates the need synthetic receiver functions by invoking a Matlab call
+    to the RF codes passed on to Nick Mancinelli by Emily Hopper.
+    The RFs are stored as .mat files.
     """
     from os import chdir, getcwd, system, listdir
 
-    MohoDepth = syntheticParams["MohoDepth"]
-    Mohodlnv = syntheticParams["Mohodlnv"]
+    MohoDepth  = syntheticParams["MohoDepth"]
+    Mohodlnv   = syntheticParams["Mohodlnv"]
     PulseWidth = syntheticParams["PulseWidth"]
-    LABDepth = syntheticParams["LABDepth"]
-    LABdlnv = syntheticParams["LABdlnv"]
-    MLDDepth = syntheticParams["MLDDepth"]
-    MLDdlnv = syntheticParams["MLDdlnv"]
+    LABDepth   = syntheticParams["LABDepth"]
+    LABdlnv    = syntheticParams["LABdlnv"]
+    MLDDepth   = syntheticParams["MLDDepth"]
+    MLDdlnv    = syntheticParams["MLDdlnv"]
     LABTransitionThickness = syntheticParams["LABTransitionThickness"]
 
     print ''
@@ -56,7 +61,8 @@ def generate_synthetics(syntheticParams, RayParam, ForceNew=False):
     dir1 = getcwd()
     dir3 = '/Users/mancinelli/PROJECTS/ARRAY_STACK/ReceiverFunctions/Make_Receiver_Functions/CLEAN/Scattered_Waves/Data/Projects/Synth_CRATON'
 
-    #Check if syns already exist
+
+    #Check if syns already exist, set to True if you want to force overwrite
     if ForceNew == False:
         chdir('%s/SY_PROPMAT/FAKE/' % (dir3))
         file_name = "RF_Depth_%ds_%ds_%s_%d_%.1f_%.2f_%.1f_%.3f_%d_%.2f_%d_%.2f_%d_%s.mat" % (
@@ -120,10 +126,7 @@ def generate_synthetics(syntheticParams, RayParam, ForceNew=False):
 
 def load_synthetic_RF_PropMat(RayParam,syntheticParams):
     """
-    This subroutine drives several programs. More documentation to come later.
-    :param RayParam:
-    :param syntheticParams:
-    :return:
+    This subroutine loads individual RFs stored in .mat files
     """
     from TOOLS import loadmat
     from numpy import array

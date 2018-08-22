@@ -20,12 +20,14 @@ def freq_stack():
         FileForPub.write('# %s \n' % tmp)
         FileForPub.write('# \n')
 
-    #Prepare synthetics - uncomment this if new synthetics need to be generated
-    #for SyntheticParams in allSyntheticParams:
-    #    for RayParam in [0.09, 0.092, 0.094, 0.096, 0.098, 0.1, 0.102, 0.104, 0.106, 0.108, 0.11, 0.112, 0.114, 0.116, 0.118]:
-        #for RayParam in [0.12]:
-    #        generate_synthetics(SyntheticParams, RayParam)
+    #Prepare synthetics - set to true if a new database of synthetics needs to be generated (may take days!)
+    if False:
+        #for SyntheticParams in allSyntheticParams:
+        #    for RayParam in [0.09, 0.092, 0.094, 0.096, 0.098, 0.1, 0.102, 0.104, 0.106, 0.108, 0.11, 0.112, 0.114, 0.116, 0.118]:
+        #        generate_synthetics(SyntheticParams, RayParam)
 
+
+    #Set up figture
     fig = plt.figure(1, figsize=(3.5, 1.75))
     params = {'legend.fontsize': 4,
               'figure.figsize': (3, 1.5),
@@ -38,14 +40,16 @@ def freq_stack():
     plt.rcParams.update(params)
 
     #For the GRL paper, the goodness-of-fit calculation was carried out only at 16s
-
+    #
     if CalculateGoodnessOfFit:
         ListOfPeriods = [16]
     else:
         ListOfPeriods = [20, 16, 12, 8, 4, 2]
 
-    for isub, lowT in enumerate(ListOfPeriods):
 
+    #Loop over periods and plot each RF
+    #
+    for isub, lowT in enumerate(ListOfPeriods):
         rect1 = [0.1, 0.15, 0.7, 0.8]
         rect2 = [0.82, 0.15, 0.1, 0.8]
         ax = fig.add_axes(rect1)
